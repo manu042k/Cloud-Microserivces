@@ -4,10 +4,11 @@ import { LoginUserDTO } from "../dto/loginUserDTO";
 
 export class UserRepository {
   async createUser(userData: CreateUserDTO): Promise<User> {
-    const { Username, Email, Password, UserType } = userData;
+    const { Username, Email, FullName, Password, UserType } = userData;
     const user = await User.create({
       Username,
       Email,
+      FullName,
       PasswordHash: Password,
       UserType,
     });

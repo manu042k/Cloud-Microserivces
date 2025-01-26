@@ -9,6 +9,7 @@ export class UserMapper {
     return {
       Username: rawData.Username,
       Email: rawData.Email,
+      FullName: rawData.FullName,
       Password: rawData.Password,
       UserType: rawData.UserType,
     };
