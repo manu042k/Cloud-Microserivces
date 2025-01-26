@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/userService";
 import { CreateUserDTO } from "../dto/createUserDTO";
+import { UserMapper } from "../mappers/userMapper";
 
 export class UserController {
   private userService: UserService;
@@ -11,9 +12,16 @@ export class UserController {
 
   async register(req: Request, res: Response) {
     try {
-      const userDTO: CreateUserDTO = req.body;
-      const user = await this.userService.register(userDTO);
-      res.status(201).json(user);
+      // Map raw request body to CreateUserDTO
+      const userDTO: CreateUserDTO = UserMapper.mapToCreateUserDTO(req.body);
+
+      // Call the service to register the user
+      const createdUser = await this.userService.register(userDTO);
+
+      // Map the created user entity to UserResponseDTO
+      const responseDTO = UserMapper.mapToUserResponseDTO(createdUser);
+
+      res.status(201).json(responseDTO);
     } catch (error) {
       res.status(400).json({ message: (error as Error).message });
     }

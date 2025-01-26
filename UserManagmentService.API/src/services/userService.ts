@@ -2,6 +2,7 @@ import { UserRepository } from "../repositories/userRepository";
 import { CreateUserDTO } from "../dto/createUserDTO";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { LoginUserDTO } from "../dto/loginUserDTO";
 
 export class UserService {
   private userRepository: UserRepository;
