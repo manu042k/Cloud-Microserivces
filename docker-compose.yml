@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  user-management-service:
+    build:
+      context: ./UserManagmentService.API  # Point to the folder where your Dockerfile is located
+      dockerfile: Dockerfile  # Optional: This is the default if the Dockerfile is named 'Dockerfile'
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: "db"
+      DB_USER: "user"
+      DB_PASSWORD: "password"
+      DB_NAME: "userservice"
+      JWT_SECRET: "your_jwt_secret_key_here" # You can add any other environment variables if needed
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: userservice
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local
