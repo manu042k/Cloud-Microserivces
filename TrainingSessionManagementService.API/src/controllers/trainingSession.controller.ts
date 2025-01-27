@@ -6,17 +6,8 @@ export class TrainingSessionController {
   constructor(private service: TrainingSessionService) {}
 
   async createTrainingSession(req: Request, res: Response) {
-    // try {
-    //   const session = await this.service.createTrainingSession(req.body);
-    //   res.status(201).json(req.body);
-    // } catch (error) {
-    //   res.status(500).json({ error: (error as any).message });
-    // }
-
     try {
-      console.log("req", req.body);
-      const session = TrainingSession.create(req.body);
-
+      const session = await this.service.createTrainingSession(req.body);
       res.status(201).json(session);
     } catch (error) {
       res.status(500).json({ error: (error as any).message });

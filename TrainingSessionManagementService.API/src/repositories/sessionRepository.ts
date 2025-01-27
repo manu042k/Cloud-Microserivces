@@ -4,6 +4,10 @@ export class TrainingSessionRepository {
   async create(session: Partial<TrainingSession>) {
     return await TrainingSession.create(session);
   }
+  async createAndReturn(session: Partial<TrainingSession>) {
+    const createdSession = await TrainingSession.create(session);
+    return createdSession;
+  }
 
   async findById(id: string) {
     return await TrainingSession.findByPk(id);
