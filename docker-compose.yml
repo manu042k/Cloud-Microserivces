@@ -54,6 +54,16 @@ services:
     volumes:
       - session_db_data:/var/lib/postgresql/data
 
+
+  workout-recommdation-service:
+    build:
+      context: ./WorkOutRecommdationService.API
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
