@@ -1,25 +1,41 @@
+from http.client import HTTPException
 from fastapi import FastAPI
 from config import load_environment
-from memory import GroqChat
-from pydantic import BaseModel
+from memory import DietChat, GetCaloriesByImage, WorkoutChat
+from models import ImageRequest, WorkOutRequest, DietPlanRequest
 
-class WorkOutRequest(BaseModel):
-    query: str
 
 app = FastAPI()
 load_environment()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello, World!"}
 
 @app.post("/workout")
-async def generate_workout_plan(request:WorkOutRequest):
+async def generate_workout_plan(request: WorkOutRequest):
     try:
-        chatbot = GroqChat()
-        response =  chatbot.get_response(request.query)
+        chatbot = WorkoutChat()  # Use the specific WorkoutChat class
+        response = chatbot.get_plan(request)
         return {"message": response}
     except Exception as e:
-        return {"message": f"An error occurred: {str(e)}"}
+        raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
     
+    
+@app.post("/dietplan")
+async def generate_diet_plan(request: DietPlanRequest):
+    try:
+        chatbot = DietChat()  # Use the specific DietChat class
+        response = chatbot.get_plan(request)
+        return {"message": response}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
+
+@app.post("/get-calories/")
+async def chat(request: ImageRequest):
+    """Process chat request with image and query asynchronously."""
+    try:
+        chat = GetCaloriesByImage()
+        response = chat.get_response(request.base64Image)
+        return {"response": response}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
 
