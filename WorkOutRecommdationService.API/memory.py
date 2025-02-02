@@ -132,7 +132,7 @@ class DietChat(BaseGroqChat):
 
 
 class GetCaloriesByImage:
-    def __init__(self, model_name="llama-3.2-11b-vision-preview"):
+    def __init__(self, model_name="llama-3.2-90b-vision-preview"):
         """Initialize the chatbot with environment variables and model."""
         self.model = ChatGroq(model=model_name)
 
