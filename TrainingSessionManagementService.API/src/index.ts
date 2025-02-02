@@ -18,16 +18,6 @@ app.get("/health", (req, res) => {
   res.status(200).send("TrainingSessionManagement Service is running");
 });
 
-// app.post("/api/training-sessions/create", (req, res) => {
-//   try {
-//     console.log("req", req.body);
-//     TrainingSession.create(req.body);
-
-//     res.status(201).json(req.body);
-//   } catch (error) {
-//     res.status(500).json({ error: (error as any).message });
-//   }
-// });
 app.use("/api/training-sessions", sessionRoutes);
 
 app.listen(3001, () => {

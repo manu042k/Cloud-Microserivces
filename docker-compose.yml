@@ -63,6 +63,8 @@ services:
       - "8000:8000"
     environment:
       - ENVIRONMENT=development
+      - GROQ_API_KEY = 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
+
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
