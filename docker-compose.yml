@@ -15,7 +15,10 @@ services:
       DB_NAME: "userservice"
       JWT_SECRET: "your_jwt_secret_key_here"
     depends_on:
-      - user_db
+      user_db:
+        condition: service_healthy
+    networks:
+      - my_custom_network
 
   user_db:
     image: postgres:latest
@@ -27,6 +30,13 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - my_custom_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "user"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
   training-session-management-service:
     build:
@@ -36,12 +46,16 @@ services:
       - "3001:3001"
     environment:
       DB_HOST: "session_db"
+      DB_PORT: "5432"
       DB_USER: "user"
       DB_PASSWORD: "password"
       DB_NAME: "trainingsessionservice"
       JWT_SECRET: "your_jwt_secret_key_here"
     depends_on:
-      - session_db
+      session_db:
+        condition: service_healthy
+    networks:
+      - my_custom_network
 
   session_db:
     image: postgres:latest
@@ -53,9 +67,15 @@ services:
       - "5433:5432"
     volumes:
       - session_db_data:/var/lib/postgresql/data
+    networks:
+      - my_custom_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "user"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
-
-  workout-recommdation-service:
+  workout-recommendation-service:
     build:
       context: ./WorkOutRecommdationService.API
       dockerfile: Dockerfile
@@ -63,32 +83,16 @@ services:
       - "8000:8000"
     environment:
       - ENVIRONMENT=development
-      - GROQ_API_KEY = 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
-
-
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - "2181:2181"
-
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    ports:
-      - "9093:9093"
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9093
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    depends_on:
-      - zookeeper
+      - GROQ_API_KEY=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
+    networks:
+      - my_custom_network
 
 volumes:
   db_data:
     driver: local
   session_db_data:
     driver: local
+
+networks:
+  my_custom_network:
+    driver: bridge

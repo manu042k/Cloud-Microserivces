@@ -1,5 +1,5 @@
 from http.client import HTTPException
-from fastapi import FastAPI
+from fastapi import FastAPI # type: ignore
 from config import load_environment
 from memory import DietChat, GetCaloriesByImage, WorkoutChat
 from models import ImageRequest, WorkOutRequest, DietPlanRequest
