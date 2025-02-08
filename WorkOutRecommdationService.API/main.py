@@ -3,11 +3,12 @@ from fastapi import FastAPI # type: ignore
 from config import load_environment
 from memory import DietChat, GetCaloriesByImage, WorkoutChat
 from models import ImageRequest, WorkOutRequest, DietPlanRequest
-
+from auth_middleware import AuthMiddleware
 
 app = FastAPI()
 load_environment()
 
+app.add_middleware(AuthMiddleware)
 
 @app.post("/workout")
 async def generate_workout_plan(request: WorkOutRequest):
