@@ -132,7 +132,7 @@ class DietChat(BaseGroqChat):
 
 
 class GetCaloriesByImage:
-    def __init__(self, model_name="llama-3.2-90b-vision-preview"):
+    def __init__(self, model_name="llama-3.2-11b-vision-preview"):
         """Initialize the chatbot with environment variables and model."""
         self.model = ChatGroq(model=model_name)
 
@@ -148,7 +148,7 @@ class GetCaloriesByImage:
     def create_prompt(self, base64_image: str):
         """Create a chat prompt template for the image query asynchronously."""
         messages = [
-            ("user", "Identify the food items in the image and provide a structured list with details on calories, protein, carbohydrates, fats, fiber, sugar, sodium, cholesterol, vitamins, and minerals. No additional text, only the data."),
+            ("user", "Identify the food items in the image and provide an approximate list with details on calories, protein, carbohydrates, fats, fiber, sugar, sodium, cholesterol, vitamins, and minerals. No additional text, only the data."),
             (
                 "user",
                 [

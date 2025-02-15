@@ -10,11 +10,7 @@ const userController = new UserController(userService);
 
 const router = Router();
 
-router.post(
-  "/register",
-  authMiddleware,
-  userController.register.bind(userController)
-);
+router.post("/register", userController.register.bind(userController));
 
 router.post("/login", userController.login.bind(userController));
 

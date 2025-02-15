@@ -29,7 +29,7 @@ async def generate_diet_plan(request: DietPlanRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
 
-@app.post("/get-calories/")
+@app.post("/get-calories")
 async def chat(request: ImageRequest):
     """Process chat request with image and query asynchronously."""
     try:

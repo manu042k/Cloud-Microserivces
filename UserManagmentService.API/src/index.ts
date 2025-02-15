@@ -11,7 +11,7 @@ sequelize
   .catch((err: Error): void => console.error("Error syncing database:", err));
 
 app.use(bodyParser.json());
-app.use("/api/users", userRoutes);
+app.use("", userRoutes);
 
 app.listen(3000, () => {
   console.log("User Management Service running on port 3000");

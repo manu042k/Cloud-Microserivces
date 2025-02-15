@@ -86,7 +86,21 @@ services:
       - GROQ_API_KEY=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
     networks:
       - my_custom_network
-
+  nginx-proxy:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./APIGateway/nginx.conf:/etc/nginx/conf.d/default.conf  
+    depends_on:
+      - user-management-service
+      - training-session-management-service
+      - workout-recommendation-service
+      - user_db
+      - session_db
+    networks:
+      - my_custom_network
 volumes:
   db_data:
     driver: local

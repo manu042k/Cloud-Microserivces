@@ -18,7 +18,7 @@ app.get("/health", (req, res) => {
   res.status(200).send("TrainingSessionManagement Service is running");
 });
 
-app.use("/api/training-sessions", sessionRoutes);
+app.use("", sessionRoutes);
 
 app.listen(3001, () => {
   console.log("TrainingSessionManagement Service running on port 3001");
