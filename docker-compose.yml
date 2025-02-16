@@ -101,6 +101,26 @@ services:
       - session_db
     networks:
       - my_custom_network
+
+  shell-service:
+    build: 
+      context: ./UiLayer
+      dockerfile: Dockerfile.shell
+    ports:
+      - "4200:80" 
+    depends_on:
+      - about-service
+    networks:
+      - my_custom_network
+
+  about-service:
+    build: 
+      context: ./UiLayer
+      dockerfile: Dockerfile.about
+    ports:
+      - "4201:80" 
+    networks:
+      - my_custom_network
 volumes:
   db_data:
     driver: local
