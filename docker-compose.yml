@@ -10,10 +10,10 @@ services:
     environment:
       DB_HOST: "user_db"
       DB_PORT: "5432"
-      DB_USER: "user"
-      DB_PASSWORD: "password"
-      DB_NAME: "userservice"
-      JWT_SECRET: "your_jwt_secret_key_here"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_NAME: "${DB_NAME}"
+      JWT_SECRET: "${JWT_SECRET}"
     depends_on:
       user_db:
         condition: service_healthy
@@ -23,9 +23,9 @@ services:
   user_db:
     image: postgres:latest
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: userservice
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_NAME}"
     ports:
       - "5432:5432"
     volumes:
@@ -33,7 +33,7 @@ services:
     networks:
       - my_custom_network
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "user"]
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}"]
       interval: 10s
       retries: 5
       timeout: 5s
@@ -47,10 +47,10 @@ services:
     environment:
       DB_HOST: "session_db"
       DB_PORT: "5432"
-      DB_USER: "user"
-      DB_PASSWORD: "password"
-      DB_NAME: "trainingsessionservice"
-      JWT_SECRET: "your_jwt_secret_key_here"
+      DB_USER: "${SESSION_DB_USER}"
+      DB_PASSWORD: "${SESSION_DB_PASSWORD}"
+      DB_NAME: "${SESSION_DB_NAME}"
+      JWT_SECRET: "${JWT_SECRET}"
     depends_on:
       session_db:
         condition: service_healthy
@@ -60,9 +60,9 @@ services:
   session_db:
     image: postgres:latest
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: trainingsessionservice
+      POSTGRES_USER: "${SESSION_DB_USER}"
+      POSTGRES_PASSWORD: "${SESSION_DB_PASSWORD}"
+      POSTGRES_DB: "${SESSION_DB_NAME}"
     ports:
       - "5433:5432"
     volumes:
@@ -70,7 +70,7 @@ services:
     networks:
       - my_custom_network
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "user"]
+      test: ["CMD", "pg_isready", "-U", "${SESSION_DB_USER}"]
       interval: 10s
       retries: 5
       timeout: 5s
@@ -83,9 +83,10 @@ services:
       - "8000:8000"
     environment:
       - ENVIRONMENT=development
-      - GROQ_API_KEY=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
+      - GROQ_API_KEY=${GROQ_API_KEY}
     networks:
       - my_custom_network
+
   nginx-proxy:
     image: nginx:latest
     container_name: nginx-proxy
@@ -121,6 +122,7 @@ services:
       - "4201:80" 
     networks:
       - my_custom_network
+
 volumes:
   db_data:
     driver: local
