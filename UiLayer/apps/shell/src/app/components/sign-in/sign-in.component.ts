@@ -12,6 +12,9 @@ import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../core/store/auth/auth.actions';
+import * as AuthSelectors from '../../core/store/auth/auth.selectors';
 
 @Component({
   selector: 'app-sign-in',
@@ -73,7 +76,8 @@ export class SignInComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -83,19 +87,8 @@ export class SignInComponent {
 
   onSubmit() {
     if (this.signInForm.valid) {
-      this.authService.login(this.signInForm.value).subscribe({
-        next: (response) => {
-          if (response.token) {
-            console.log(response.token);
-            // Handle successful login
-            this.router.navigate(['/']);
-          }
-        },
-        error: (error) => {
-          // Handle error - you might want to show a message to the user
-          console.error('Login failed:', error);
-        },
-      });
+      const { email, password } = this.signInForm.value;
+      this.store.dispatch(AuthActions.login({ email, password }));
     }
   }
 }

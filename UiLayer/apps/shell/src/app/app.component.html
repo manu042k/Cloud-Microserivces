@@ -14,16 +14,25 @@
       <ng-template #item let-item let-root="root"> </ng-template>
       <ng-template #end>
         <div class="flex items-center gap-2 pr-4">
-          <p-button
-            label="Sign In"
-            styleClass="p-button-text text-white hover:bg-white/10"
-            routerLink="/sign-in"
-          ></p-button>
-          <p-button
-            label="Sign Up"
-            styleClass="p-button-text text-white border-white hover:bg-white/10"
-            routerLink="/sign-up"
-          ></p-button>
+          <ng-container *ngIf="!(isAuthenticated$ | async); else loggedIn">
+            <p-button
+              label="Sign In"
+              styleClass="p-button-text text-white hover:bg-white/10"
+              routerLink="/sign-in"
+            ></p-button>
+            <p-button
+              label="Sign Up"
+              styleClass="p-button-text text-white border-white hover:bg-white/10"
+              routerLink="/sign-up"
+            ></p-button>
+          </ng-container>
+          <ng-template #loggedIn>
+            <p-button
+              label="Logout"
+              styleClass="p-button-text text-white hover:bg-white/10"
+              (onClick)="onLogout()"
+            ></p-button>
+          </ng-template>
         </div>
       </ng-template>
     </p-menubar>

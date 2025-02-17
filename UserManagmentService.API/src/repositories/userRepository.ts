@@ -1,6 +1,5 @@
 import { User } from "../entities/user";
 import { CreateUserDTO } from "../dto/createUserDTO";
-import { LoginUserDTO } from "../dto/loginUserDTO";
 
 export class UserRepository {
   async createUser(userData: CreateUserDTO): Promise<User> {

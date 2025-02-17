@@ -41,7 +41,13 @@ export class UserService {
         expiresIn: "1h",
       }
     );
-
-    return { token };
+    const responseUser = {
+      UserId: user.UserId,
+      Username: user.Username,
+      Email: user.Email,
+      FullName: user.FullName,
+      UserType: user.UserType,
+    };
+    return { token, user: responseUser };
   }
 }

@@ -6,6 +6,9 @@ import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
 import { Menubar } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
+import { Store } from '@ngrx/store';
+import { selectIsAuthenticated } from './core/store/auth/auth.selectors';
+import * as AuthActions from './core/store/auth/auth.actions';
 
 @Component({
   imports: [
@@ -23,8 +26,13 @@ import { ToastModule } from 'primeng/toast';
 })
 export class AppComponent {
   items: MenuItem[] | undefined;
+  isAuthenticated$ = this.store.select(selectIsAuthenticated);
 
-  ngOnInit() {
+  constructor(private store: Store) {
     this.items = [];
+  }
+
+  onLogout() {
+    this.store.dispatch(AuthActions.logout());
   }
 }

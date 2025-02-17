@@ -14,6 +14,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { UserType } from '../../core/enums/user-type.enum';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../core/store/auth/auth.actions';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-sign-up',
@@ -137,7 +140,9 @@ export class SignUpComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store,
+    private toast: MessageService
   ) {
     this.signUpForm = this.fb.group(
       {
@@ -167,18 +172,9 @@ export class SignUpComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      this.authService.register(this.signUpForm.value).subscribe({
-        next: (response) => {
-          console.log(response);
-
-          // Handle successful registration
-          this.router.navigate(['/sign-in']);
-        },
-        error: (error) => {
-          // Handle error - you might want to show a message to the user
-          console.error('Registration failed:', error);
-        },
-      });
+      const userData = { ...this.signUpForm.value };
+      delete userData.confirmPassword;
+      this.store.dispatch(AuthActions.signup({ userData }));
     }
   }
 }
