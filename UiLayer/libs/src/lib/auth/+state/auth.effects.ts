@@ -1,13 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class AuthEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
+
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
@@ -27,7 +33,14 @@ export class AuthEffects {
       ofType(AuthActions.signup),
       mergeMap(({ userData }) =>
         this.authService.register(userData).pipe(
-          map((response) => AuthActions.signupSuccess(response)),
+          map((response) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Signup Successful',
+              detail: `Welcome to the app, ${userData.FullName}!`,
+            });
+            return AuthActions.signupSuccess(response);
+          }),
           catchError((error) =>
             of(AuthActions.signupFailure({ error: error.message }))
           )
@@ -36,12 +49,16 @@ export class AuthEffects {
     )
   );
 
-  authSuccess$ = createEffect(
+  loginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AuthActions.loginSuccess, AuthActions.signupSuccess),
-        tap(({ token }) => {
-          localStorage.setItem('token', token);
+        ofType(AuthActions.loginSuccess),
+        tap(({ user }) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Login Successful',
+            detail: `Welcome back, ${user.FullName}!`,
+          });
           this.router.navigate(['/']);
         })
       ),
@@ -53,16 +70,14 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.logout),
         tap(() => {
-          localStorage.removeItem('token');
           this.router.navigate(['/login']);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Logout Successful',
+            detail: `Logged out successfully`,
+          });
         })
       ),
     { dispatch: false }
   );
-
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService,
-    private router: Router
-  ) {}
 }
