@@ -6,14 +6,14 @@ export interface User {
   UserType: string;
 }
 
-export interface AuthResponse {
-  token: string;
-  user: User;
-}
-
 export interface AuthState {
   user: User | null;
   token: string | null;
   isAuthenticated: boolean;
   error: string | null;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: User;
 }

@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ui-layer/auth": ["libs/src/index.ts"],
       "about/Routes": ["apps/about/src/app/remote-entry/entry.routes.ts"]
     }
   },

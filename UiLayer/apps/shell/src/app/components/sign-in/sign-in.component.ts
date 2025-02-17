@@ -10,11 +10,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
-import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as AuthActions from '../../core/store/auth/auth.actions';
-import * as AuthSelectors from '../../core/store/auth/auth.selectors';
+import { AuthActions } from '@ui-layer/auth';
 
 @Component({
   selector: 'app-sign-in',
@@ -73,12 +70,7 @@ import * as AuthSelectors from '../../core/store/auth/auth.selectors';
 export class SignInComponent {
   signInForm: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private store: Store
-  ) {
+  constructor(private fb: FormBuilder, private store: Store) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],

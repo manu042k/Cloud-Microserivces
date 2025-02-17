@@ -11,12 +11,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
-import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
 import { UserType } from '../../core/enums/user-type.enum';
 import { Store } from '@ngrx/store';
-import * as AuthActions from '../../core/store/auth/auth.actions';
-import { MessageService } from 'primeng/api';
+import { AuthActions } from '@ui-layer/auth';
 
 @Component({
   selector: 'app-sign-up',
@@ -40,7 +37,6 @@ import { MessageService } from 'primeng/api';
               >Username</label
             >
             <span class="p-input-icon-left w-full">
-              <i class="pi pi-user"></i>
               <input
                 pInputText
                 type="text"
@@ -55,7 +51,6 @@ import { MessageService } from 'primeng/api';
               >Full Name</label
             >
             <span class="p-input-icon-left w-full">
-              <i class="pi pi-user"></i>
               <input
                 pInputText
                 type="text"
@@ -70,7 +65,6 @@ import { MessageService } from 'primeng/api';
               >Email</label
             >
             <span class="p-input-icon-left w-full">
-              <i class="pi pi-envelope"></i>
               <input
                 pInputText
                 type="email"
@@ -137,13 +131,7 @@ export class SignUpComponent {
     { label: 'Trainee', value: UserType.TRAINEE },
   ];
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private store: Store,
-    private toast: MessageService
-  ) {
+  constructor(private fb: FormBuilder, private store: Store) {
     this.signUpForm = this.fb.group(
       {
         Username: ['', [Validators.required]],

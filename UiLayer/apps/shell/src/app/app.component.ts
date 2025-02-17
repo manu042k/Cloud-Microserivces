@@ -7,8 +7,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { Menubar } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { Store } from '@ngrx/store';
-import { selectIsAuthenticated } from './core/store/auth/auth.selectors';
-import * as AuthActions from './core/store/auth/auth.actions';
+import { selectIsAuthenticated, AuthActions } from '@ui-layer/auth';
+import { Observable } from 'rxjs';
 
 @Component({
   imports: [
@@ -26,12 +26,12 @@ import * as AuthActions from './core/store/auth/auth.actions';
 })
 export class AppComponent {
   items: MenuItem[] | undefined;
-  isAuthenticated$ = this.store.select(selectIsAuthenticated);
+  isAuthenticated$: Observable<boolean>;
 
   constructor(private store: Store) {
     this.items = [];
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
-
   onLogout() {
     this.store.dispatch(AuthActions.logout());
   }
