@@ -1,0 +1,32 @@
+<div class="container mx-auto px-4 py-8">
+  <p-timeline
+    [value]="events"
+    align="alternate"
+    styleClass="customized-timeline"
+    class="mt-6"
+  >
+    <ng-template #marker let-event>
+      <span
+        class="flex w-12 h-12 items-center justify-center text-white rounded-full z-10 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
+        [style]="{ 'background-color': event.color }"
+      >
+        <i [class]="event.icon + ' text-xl'"></i>
+      </span>
+    </ng-template>
+    <ng-template #content let-event>
+      <div class="timeline-card opacity-0">
+        <p-card
+          [header]="event.status"
+          [subheader]="event.date"
+          class="shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 max-w-md rounded-lg bg-white"
+        >
+          <div class="p-4">
+            <p class="whitespace-pre-line leading-relaxed text-gray-600">
+              {{ event.content }}
+            </p>
+          </div>
+        </p-card>
+      </div>
+    </ng-template>
+  </p-timeline>
+</div>

@@ -1,9 +1,39 @@
-<ul class="remote-menu">
-  <li><a routerLink="/">Home</a></li>
-  <li><a routerLink="about">About</a></li>
-
-  <div class="card flex justify-center">
-    <p-button label="Check" />
+<div class="min-h-screen bg-gray-50">
+  <!-- Fixed Menubar -->
+  <div class="fixed top-0 left-0 right-0 z-50">
+    <p-menubar [model]="items" class="border-none shadow-lg bg-primary">
+      <ng-template #start>
+        <div class="flex items-center gap-3 px-4">
+          <i
+            routerLink="/"
+            class="fa-solid fa-dumbbell text-3xl text-white transition-colors hover:text-white/90 cursor-pointer"
+          ></i>
+          <span class="text-2xl font-bold text-white">FitnessAIx</span>
+        </div>
+      </ng-template>
+      <ng-template #item let-item let-root="root"> </ng-template>
+      <ng-template #end>
+        <div class="flex items-center gap-2 pr-4">
+          <p-button
+            label="Sign In"
+            styleClass="p-button-text text-white hover:bg-white/10"
+            routerLink="/sign-in"
+          ></p-button>
+          <p-button
+            label="Sign Up"
+            styleClass="p-button-text text-white border-white hover:bg-white/10"
+            routerLink="/sign-up"
+          ></p-button>
+        </div>
+      </ng-template>
+    </p-menubar>
   </div>
-</ul>
-<router-outlet></router-outlet>
+
+  <!-- Content with top padding to account for fixed menubar -->
+  <div class="pt-16">
+    <div class="bg-grid-pattern min-h-screen">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>

@@ -1,0 +1,115 @@
+:host ::ng-deep {
+  .customized-timeline {
+    .p-timeline-event {
+      margin-bottom: 2rem;
+    }
+    
+    .p-card {
+      border-radius: 0.5rem;
+      
+      .p-card-header {
+        font-size: 1.25rem;
+        font-weight: 600;
+        padding: 1rem 1.5rem 0.5rem;
+      }
+      
+      .p-card-subheader {
+        font-size: 0.875rem;
+        padding: 0 1.5rem;
+      }
+      
+      .p-card-content {
+        padding: 1rem 1.5rem;
+      }
+    }
+  }
+
+  .p-menubar {
+    @apply h-16;
+    border: none;
+    padding: 0.5rem 0;
+    position: relative;
+    background-color: var(--primary-color);
+    
+    .p-menubar-start {
+      flex: 1;
+    }
+
+    // Make menubar text white
+    .text-2xl {
+      color: white;
+    }
+
+    // Make icon white
+    .fa-dumbbell {
+      color: white;
+    }
+
+    // Style avatar
+    .p-avatar {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+    }
+  }
+}
+
+// Add light background to the page
+:host {
+  .min-h-screen {
+    background-color: var(--surface-ground);
+  }
+
+  // Add subtle pattern to the content area
+  .content-area {
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+
+// Animation for timeline items
+.timeline-card {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  :host ::ng-deep {
+    .customized-timeline {
+      .p-timeline-event {
+        margin-bottom: 1.5rem;
+      }
+      
+      .p-card {
+        max-width: 100% !important;
+      }
+    }
+  }
+}
+
+// Add this to your global styles or create a new utility class
+.bg-grid-pattern {
+  @apply bg-gray-50;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
