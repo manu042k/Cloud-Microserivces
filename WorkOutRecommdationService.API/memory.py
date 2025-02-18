@@ -97,7 +97,9 @@ class DietChat(BaseGroqChat):
         2. **Breakfast, Lunch, Dinner, and Snacks** with portion sizes.
         3. **Nutrient-rich food recommendations** based on goals.
         4. **Hydration & Supplement Advice**.
-        5. **Easy meal prep tips** for efficiency
+        5. **Easy meal prep tips** for efficiency 
+
+        give answer in plain text
         """ 
     
     def get_plan(self,request: DietPlanRequest) -> str:

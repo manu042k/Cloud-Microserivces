@@ -110,16 +110,34 @@ services:
     ports:
       - "4200:80" 
     depends_on:
-      - about-service
+      - profile-service
     networks:
       - my_custom_network
 
-  about-service:
+  profile-service:
     build: 
       context: ./UiLayer
-      dockerfile: Dockerfile.about
+      dockerfile: Dockerfile.profile
     ports:
-      - "4201:80" 
+      - "4202:80" 
+    networks:
+      - my_custom_network
+
+  trainee-service:
+    build: 
+      context: ./UiLayer
+      dockerfile: Dockerfile.trainee
+    ports:
+      - "4203:80" 
+    networks:
+      - my_custom_network 
+
+  trainer-service:
+    build: 
+      context: ./UiLayer
+      dockerfile: Dockerfile.trainer
+    ports:
+      - "4204:80" 
     networks:
       - my_custom_network
 

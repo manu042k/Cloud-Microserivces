@@ -5,6 +5,11 @@ import { authGuard } from '@ui-layer/auth';
 
 export const appRoutes: Route[] = [
   {
+    path: 'trainer',
+    loadChildren: () => import('trainer/Routes').then((m) => m!.remoteRoutes),
+    // canActivate: [authGuard],
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./components/timeline/timeline.component').then(
