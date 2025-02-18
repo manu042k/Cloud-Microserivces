@@ -1,9 +1,13 @@
-
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 class WorkOutRequest(BaseModel):
     query: str
+
+class MacrosModel(BaseModel):
+    Protein: str
+    Carbs: str
+    Fats: str
 
 class DietPlanRequest(BaseModel):
     age: int
@@ -13,17 +17,16 @@ class DietPlanRequest(BaseModel):
     activity_level: str
     goal: str
     diet_type: str
-    allergies: list[str]
-    disliked_foods: list[str]
-    preferred_cuisine: list[str]
+    allergies: List[str]
+    disliked_foods: List[str]
+    preferred_cuisine: List[str]
     meal_count_per_day: int
-    cooking_time_limit: int 
-    caloric_intake: int 
-    macros: dict 
+    cooking_time_limit: int
+    caloric_intake: int
+    macros: MacrosModel
     detailed_recipe: bool
     shopping_list: bool
-    include_snacks: bool 
-
+    include_snacks: bool
 
 class ImageRequest(BaseModel):
     base64Image: str

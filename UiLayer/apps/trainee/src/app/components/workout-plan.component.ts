@@ -78,6 +78,7 @@ export class WorkoutPlanComponent {
           next: (response) => {
             this.workoutPlan = response;
             this.loading = false;
+            console.log('Workout plan:', response);
           },
           error: (error) => {
             console.error('Error fetching workout plan:', error);

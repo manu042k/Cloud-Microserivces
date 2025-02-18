@@ -13,8 +13,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import { MyPreset } from 'mytheme';
 import { MessageService } from 'primeng/api';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { httpHeadersInterceptor } from './core/interceptors/http-headers.interceptor';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,8 +23,8 @@ export const appConfig: ApplicationConfig = {
     provideEffects(AuthEffects),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideRouter(appRoutes),
-    provideHttpClient(withInterceptors([httpHeadersInterceptor])),
     provideAnimations(),
+    provideHttpClient(),
     providePrimeNG({
       theme: {
         preset: MyPreset,
