@@ -1,4 +1,6 @@
-import { withModuleFederation } from '@nx/module-federation/angular';
+import { composePlugins, withNx } from '@nx/webpack';
+import { withModuleFederation } from '@nx/angular/module-federation';
+
 import config from './module-federation.config';
 
 /**

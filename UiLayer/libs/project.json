@@ -1,20 +1,26 @@
 {
-  "name": "auth",
+  "name": "shared-auth",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/src",
-  "prefix": "lib",
-  "projectType": "library",
+  "prefix": "fitness",
   "tags": [],
+  "projectType": "library",
   "targets": {
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/libs"],
       "options": {
-        "jestConfig": "libs/jest.config.ts"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
+        "project": "libs/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   }
 }

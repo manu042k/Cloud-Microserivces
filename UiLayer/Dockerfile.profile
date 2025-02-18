@@ -15,10 +15,10 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Build the Angular application using Nx
-RUN npx nx build about
+RUN npx nx build profile
 
 # Debug: Check if build output exists
-RUN ls -la /app/dist/apps/about
+RUN ls -la /app/dist/apps/profile
 
 # Production Stage
 FROM nginx:stable-alpine
@@ -30,7 +30,7 @@ WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 
 # Copy the built application from the builder stage
-COPY --from=builder /app/dist/apps/about ./
+COPY --from=builder /app/dist/apps/profile ./
 
 # Copy custom Nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf

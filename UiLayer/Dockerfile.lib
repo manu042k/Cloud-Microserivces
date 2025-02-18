@@ -1,0 +1,20 @@
+# Build Stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install build dependencies
+RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+
+# Install dependencies
+RUN npm install --legacy-peer-deps
+
+# Copy source
+COPY . .
+
+# Build library
+RUN npx nx build shared-auth --configuration=production
+
+# No need for Nginx stage since this is a library

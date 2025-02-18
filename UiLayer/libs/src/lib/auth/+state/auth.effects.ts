@@ -59,7 +59,7 @@ export class AuthEffects {
             summary: 'Login Successful',
             detail: `Welcome back, ${user.FullName}!`,
           });
-          this.router.navigate(['/']);
+          this.router.navigate(['/profile']);
         })
       ),
     { dispatch: false }

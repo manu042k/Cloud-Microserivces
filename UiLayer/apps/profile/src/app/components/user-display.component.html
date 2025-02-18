@@ -1,0 +1,32 @@
+<div class="flex justify-center items-center min-h-screen">
+  <p-card *ngIf="user$ | async as user" class="w-full max-w-md">
+    <div class="flex flex-col items-center gap-4">
+      <p-avatar
+        [label]="user.FullName.charAt(0)"
+        styleClass="bg-primary text-2xl"
+        size="xlarge"
+        shape="circle"
+      ></p-avatar>
+
+      <h2 class="text-2xl font-bold text-gray-800">{{ user.FullName }}</h2>
+
+      <div class="w-full space-y-4">
+        <div class="flex flex-col gap-1">
+          <span class="text-sm text-gray-500">Username</span>
+          <span class="text-lg">{{ user.Username }}</span>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <span class="text-sm text-gray-500">Email</span>
+          <span class="text-lg">{{ user.Email }}</span>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <span class="text-sm text-gray-500">Role</span>
+          <span class="text-lg capitalize">{{ user.UserType }}</span>
+        </div>
+      </div>
+    </div>
+  </p-card>
+</div>
+test

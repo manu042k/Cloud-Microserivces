@@ -1,11 +1,13 @@
 import { Route } from '@angular/router';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { authGuard } from '@ui-layer/auth';
 
 export const appRoutes: Route[] = [
   {
-    path: 'about',
-    loadChildren: () => import('about/Routes').then((m) => m!.remoteRoutes),
+    path: 'profile',
+    loadChildren: () => import('profile/Routes').then((m) => m!.remoteRoutes),
+    canActivate: [authGuard],
   },
   {
     path: '',
@@ -15,5 +17,6 @@ export const appRoutes: Route[] = [
       ),
   },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-up', component: SignUpComponent }
+  { path: 'sign-up', component: SignUpComponent },
+  { path: '**', redirectTo: '' },
 ];
