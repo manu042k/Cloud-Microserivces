@@ -13,6 +13,8 @@ import { AvatarModule } from 'primeng/avatar';
   styleUrls: ['./user-display.component.scss'],
 })
 export class UserDisplayComponent {
-  constructor(private store: Store) {}
-  user$ = this.store.select(selectUser);
+  user$;
+  constructor(private store: Store) {
+    this.user$ = this.store.select(selectUser);
+  }
 }

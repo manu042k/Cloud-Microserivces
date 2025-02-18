@@ -21,6 +21,7 @@
     "@ngrx/store": "^19.0.0",
     "@nx/angular": "20.4.4",
     "@primeng/themes": "^19.0.6",
+    "cors": "^2.8.5",
     "primeicons": "^7.0.0",
     "primeng": "^19.0.6",
     "rxjs": "~7.8.0",

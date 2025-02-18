@@ -4,11 +4,18 @@ from config import load_environment
 from memory import DietChat, GetCaloriesByImage, WorkoutChat
 from models import ImageRequest, WorkOutRequest, DietPlanRequest
 from auth_middleware import AuthMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 load_environment()
-
-app.add_middleware(AuthMiddleware)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],  # Adjust this as needed
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
+# app.add_middleware(AuthMiddleware)
 
 @app.post("/workout")
 async def generate_workout_plan(request: WorkOutRequest):

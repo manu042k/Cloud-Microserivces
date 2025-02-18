@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@ui-layer/auth": ["libs/src/index.ts"],
-      "profile/Routes": ["apps/profile/src/app/remote-entry/entry.routes.ts"]
+      "profile/Routes": ["apps/profile/src/app/remote-entry/entry.routes.ts"],
+      "trainee/Routes": ["apps/trainee/src/app/remote-entry/entry.routes.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

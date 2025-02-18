@@ -28,6 +28,16 @@
           </ng-container>
           <ng-template #loggedIn>
             <p-button
+              label="Services"
+              styleClass="p-button-text text-white hover:bg-white/10"
+              routerLink="/trainee/services"
+            ></p-button>
+            <p-button
+              label="Profile"
+              styleClass="p-button-text text-white hover:bg-white/10"
+              routerLink="/profile"
+            ></p-button>
+            <p-button
               label="Logout"
               styleClass="p-button-text text-white hover:bg-white/10"
               (onClick)="onLogout()"
