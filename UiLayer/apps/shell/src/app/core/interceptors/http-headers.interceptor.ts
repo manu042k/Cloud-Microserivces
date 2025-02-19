@@ -10,7 +10,6 @@ export const httpHeadersInterceptor: HttpInterceptorFn = (req, next) => {
   return store.select(selectToken).pipe(
     take(1),
     mergeMap((token) => {
-      console.log('token', token);
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         ...(token ? { Authorization: `Bearer ${token}` } : {}),

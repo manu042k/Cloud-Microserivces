@@ -7,7 +7,7 @@ export const appRoutes: Route[] = [
   {
     path: 'trainer',
     loadChildren: () => import('trainer/Routes').then((m) => m!.remoteRoutes),
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: '',
@@ -19,7 +19,7 @@ export const appRoutes: Route[] = [
   {
     path: 'trainee',
     loadChildren: () => import('trainee/Routes').then((m) => m!.remoteRoutes),
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: 'profile',

@@ -14,6 +14,10 @@ export interface DietPlanRequest {
   allergies: string[];
 }
 
+export interface CalorieRequest {
+  base64Image: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -31,6 +35,16 @@ export class RecommendationsService {
     return this.http.post(
       `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.RECOMMENDATIONS.WORKOUT}`,
       data
+    );
+  }
+
+  getCalorieEstimate(request: CalorieRequest): Observable<any> {
+    const body = {
+      base64Image: `data:image/png;base64,${request.base64Image}`,
+    };
+    return this.http.post(
+      `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.RECOMMENDATIONS.CALORIES}`,
+      body
     );
   }
 }

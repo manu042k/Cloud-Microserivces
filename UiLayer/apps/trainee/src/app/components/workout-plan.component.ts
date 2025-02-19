@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
 import { CardModule } from 'primeng/card';
 import { InputTextarea } from 'primeng/inputtextarea';
 import { ButtonModule } from 'primeng/button';
 import { RecommendationsService } from '../services/recommendations.service';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-workout-plan',
@@ -12,8 +18,10 @@ import { RecommendationsService } from '../services/recommendations.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule,
     CardModule,
     InputTextarea,
+    TextareaModule,
     ButtonModule,
   ],
   template: `
@@ -48,9 +56,15 @@ import { RecommendationsService } from '../services/recommendations.service';
       </p-card>
 
       <div *ngIf="workoutPlan" class="mt-8">
-        <p-card>
-          <pre class="whitespace-pre-wrap">{{ workoutPlan | json }}</pre>
-        </p-card>
+        <textarea
+          [style.whiteSpace]="'pre-wrap'"
+          class="w-full min-h-[200px] p-4 rounded-lg border border-gray-300 whitespace-pre-wrap"
+          rows="10"
+          readonly
+          pTextarea
+          [ngModel]="workoutPlan"
+          [autoResize]="true"
+        ></textarea>
       </div>
     </div>
   `,
@@ -76,9 +90,8 @@ export class WorkoutPlanComponent {
         .getWorkoutPlan(this.workoutForm.value as { query: string })
         .subscribe({
           next: (response) => {
-            this.workoutPlan = response;
+            this.workoutPlan = response.message;
             this.loading = false;
-            console.log('Workout plan:', response);
           },
           error: (error) => {
             console.error('Error fetching workout plan:', error);

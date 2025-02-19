@@ -39,6 +39,7 @@ export class AuthEffects {
               summary: 'Signup Successful',
               detail: `Welcome to the app, ${userData.FullName}!`,
             });
+            this.router.navigate(['/sign-in']);
             return AuthActions.signupSuccess(response);
           }),
           catchError((error) =>
@@ -59,7 +60,12 @@ export class AuthEffects {
             summary: 'Login Successful',
             detail: `Welcome back, ${user.FullName}!`,
           });
-          this.router.navigate(['/trainee/services']);
+
+          if (user.UserType === 'Trainer') {
+            this.router.navigate(['/trainer']);
+          } else {
+            this.router.navigate(['/trainee/services']);
+          }
         })
       ),
     { dispatch: false }

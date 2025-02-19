@@ -22,4 +22,11 @@ export const remoteRoutes: Route[] = [
         (m) => m.WorkoutPlanComponent
       ),
   },
+  {
+    path: 'calories',
+    loadComponent: () =>
+      import('../components/calorie-calculator.component').then(
+        (m) => m.CalorieCalculatorComponent
+      ),
+  },
 ];

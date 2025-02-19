@@ -68,6 +68,9 @@ class WorkoutChat(BaseGroqChat):
     3. **Cardio Plan** - Best suited activities (running, HIIT, etc.).
     4. **Cool-down & Stretching** - Recovery techniques.
     5. **Weekly Progress Tracking Tips**.
+    
+    Provide the answer in plain text without any special formatting.
+
     """
 
     def get_plan(self, context: str) -> str:
@@ -99,7 +102,7 @@ class DietChat(BaseGroqChat):
         4. **Hydration & Supplement Advice**.
         5. **Easy meal prep tips** for efficiency 
 
-        give answer in plain text
+        Provide the answer in plain text without any special formatting.
         """ 
     
     def get_plan(self,request: DietPlanRequest) -> str:
@@ -150,7 +153,7 @@ class GetCaloriesByImage:
     def create_prompt(self, base64_image: str):
         """Create a chat prompt template for the image query asynchronously."""
         messages = [
-            ("user", "Identify the food items in the image and provide an approximate list with details on calories, protein, carbohydrates, fats, fiber, sugar, sodium, cholesterol, vitamins, and minerals. No additional text, only the data."),
+            ("user", "Identify the food items in the image and provide an approximate list with details on calories, protein, carbohydrates, fats, fiber, sugar, sodium, cholesterol, vitamins, and minerals. No additional text, only the data. Provide the answer in plain text without any special formatting."),
             (
                 "user",
                 [

@@ -24,4 +24,3 @@ export const getFullUrl = (endpoint: string): string => {
   return `${API_CONFIG.BASE_URL}${endpoint}`;
 };
 
-// Base URL

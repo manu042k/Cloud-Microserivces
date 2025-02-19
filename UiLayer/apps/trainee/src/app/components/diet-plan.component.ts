@@ -12,6 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import {
   RecommendationsService,
@@ -29,6 +30,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     FormsModule,
     ReactiveFormsModule,
     CardModule,
+    TextareaModule,
     InputTextModule,
     InputNumberModule,
     DropdownModule,
@@ -208,9 +210,15 @@ import { CheckboxModule } from 'primeng/checkbox';
       </p-card>
 
       <div *ngIf="dietPlan" class="mt-8">
-        <p-card>
-          <pre class="whitespace-pre-wrap">{{ dietPlan | json }}</pre>
-        </p-card>
+        <textarea
+          [style.whiteSpace]="'pre-wrap'"
+          class="w-full min-h-[200px] p-4 rounded-lg border border-gray-300 whitespace-pre-wrap"
+          rows="10"
+          readonly
+          pTextarea
+          [ngModel]="dietPlan"
+          [autoResize]="true"
+        ></textarea>
       </div>
     </div>
   `,
