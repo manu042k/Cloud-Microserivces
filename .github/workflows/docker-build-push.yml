@@ -31,6 +31,69 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./UserManagmentService.API
-          file: ././UserManagmentService.API/Dockerfile
+          file: ./UserManagmentService.API/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/user-management-service:${{ github.event.inputs.tag }}
+
+      # Build and push Training-Session
+      - name: Build and push Training-Session
+        uses: docker/build-push-action@v4
+        with:
+          context: ./TrainingSessionManagementService.API
+          file: ./TrainingSessionManagementService.API/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/training-session-management-service:${{ github.event.inputs.tag }}
+
+      # Build and push Workout-Recommendation Service
+      - name: Build and push Workout-Recommendation Service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./WorkOutRecommdationService.API
+          file: ./WorkOutRecommdationService.API/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/workout-recommendation-service:${{ github.event.inputs.tag }}
+
+      # Build and push Shell UI Service
+      - name: Build and push Shell UI Service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./UiLayer
+          file: ./UiLayer/Dockerfile.shell
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/shell-service:${{ github.event.inputs.tag }}
+
+      # Build and push Profile UI Service
+      - name: Build and push Profile UI Service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./UiLayer
+          file: ./UiLayer/Dockerfile.profile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/profile-service:${{ github.event.inputs.tag }}
+
+      # Build and push Trainee UI Service
+      - name: Build and push Trainee UI Service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./UiLayer
+          file: ./UiLayer/Dockerfile.trainee
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/trainee-service:${{ github.event.inputs.tag }}
+
+      # Build and push Trainer UI Service
+      - name: Build and push Trainer UI Service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./UiLayer
+          file: ./UiLayer/Dockerfile.trainer
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/trainer-service:${{ github.event.inputs.tag }}
+
+      # Build and push Nginx proxy
+      - name: Build and push Nginx proxy
+        uses: docker/build-push-action@v4
+        with:
+          context: ./APIGateway
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/nginx-proxy:${{ github.event.inputs.tag }}
+          build-args: NGINX_CONF=./nginx.conf
