@@ -1,0 +1,33 @@
+name: Build Trainer UI Service
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Image tag"
+        required: true
+        default: "latest"
+
+jobs:
+  build-trainer-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Trainer UI Service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./UiLayer
+          file: ./UiLayer/Dockerfile.trainer
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/trainer-service:${{ github.event.inputs.tag }}

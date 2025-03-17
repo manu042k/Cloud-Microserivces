@@ -1,0 +1,64 @@
+name: Main Build Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Image tag"
+        required: true
+        default: "latest"
+
+jobs:
+  trigger-builds:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Trigger user-service build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-user-service.yml
+          inputs: '{"tag": "${{ github.event.inputs.tag }}"}'
+
+      - name: Trigger training-session build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-training-session.yml
+          inputs: '{"tag": "${{ github.event.inputs.tag }}"}'
+
+      - name: Trigger workout-recommendation build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-workout-recommendation.yml
+          inputs: '{"tag": "${{ github.event.inputs.tag }}"}'
+
+      - name: Trigger shell-ui build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-shell-ui.yml
+          inputs: '{"tag": "${{ github.event.inputs.tag }}"}'
+
+      - name: Trigger profile-ui build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-profile-ui.yml
+          inputs: '{"tag": "${{ github.event.inputs.tag }}"}'
+
+      - name: Trigger trainee-ui build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-trainee-ui.yml
+          inputs: '{"tag": "${{ github.event.inputs.tag }}"}'
+
+      - name: Trigger trainer-ui build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-trainer-ui.yml
+          inputs: '{"tag": "${{ github.event.inputs.tag }}"}'
+
+      - name: Trigger nginx-proxy build
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: build-nginx-proxy.yml
+          inputs: '{"tag": "${{ github.event.inputs.tag }}"}'
