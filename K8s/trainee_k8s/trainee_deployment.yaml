@@ -1,10 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment 
+kind: Deployment
 metadata:
   name: trainee-deployment
 spec:
-  replicas: 3 
-  selector: 
+  replicas: 3
+  selector:
     matchLabels:
       app: trainee-deployment
   template:
@@ -13,8 +13,8 @@ spec:
         app: trainee-deployment
     spec:
       containers:
-      - name: cloud-microserivces-main-trainee-service
-        image: santhoshh27/cloud-microservices:trainee-service
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
+        - name: cloud-microserivces-main-trainee-service
+          image: manu042k/trainee-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80

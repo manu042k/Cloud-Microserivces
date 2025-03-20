@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: cloud-microserivces-main-workout-recommendation-service
-          image: santhoshh27/cloud-microservices:workout-recommendation-service
+          image: manu042k/workout-recommendation-service
           imagePullPolicy: Always
           envFrom:
             - configMapRef:

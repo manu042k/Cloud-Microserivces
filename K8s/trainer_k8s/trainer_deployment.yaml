@@ -1,10 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment 
+kind: Deployment
 metadata:
-  name: trainer-deployment  
+  name: trainer-deployment
 spec:
-  replicas: 3 
-  selector: 
+  replicas: 3
+  selector:
     matchLabels:
       app: trainer-deployment
   template:
@@ -13,8 +13,8 @@ spec:
         app: trainer-deployment
     spec:
       containers:
-      - name: cloud-microserivces-main-trainer-service
-        image: santhoshh27/cloud-microservices:trainer-service
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
+        - name: cloud-microserivces-main-trainer-service
+          image: manu042k/trainer-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
